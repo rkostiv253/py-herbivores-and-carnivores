@@ -15,15 +15,15 @@ class Animal:
                 f"Health: {self.health}, "
                 f"Hidden: {self.hidden}}}")
 
+    def remove_from_alive(self) -> None:
+        if self.health <= 0:
+            Animal.alive.remove(self)
+
 
 class Herbivore(Animal):
 
     def hide(self) -> None:
         self.hidden = not self.hidden
-
-    def remove_from_alive(self) -> None:
-        if self.health <= 0:
-            Animal.alive.remove(self)
 
 
 class Carnivore(Animal):
@@ -31,7 +31,7 @@ class Carnivore(Animal):
     def bite(self, animal: Herbivore) -> None:
         if isinstance(animal, Herbivore):
             if animal.hidden:
-                print("Animal cannot be bitten")
+                return None
             else:
                 animal.health -= 50
                 animal.remove_from_alive()
